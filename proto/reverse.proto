@@ -1,11 +1,61 @@
 syntax = "proto3";
-package reverse;
-service Reverse{
-  rpc Do(Request) returns(Response){}
+
+package pokemon;
+
+option go_package = "github.com/TRomesh/grpc-pokemon;pokemonpc";
+
+message Pokemon {
+  string id = 1;
+  string pid = 2;
+  string name = 3;
+  string power = 4;
+  string description = 5;
 }
-message Request{
-  string message=1;
+
+message CreatePokemonRequest {
+  Pokemon pokemon = 1;
 }
-message Response{
-  string message=1;
+
+message CreatePokemonResponse {
+  Pokemon pokemon = 1; // будет иметь идентификатор покемона
+}
+
+message ReadPokemonRequest {
+  string pid = 1;
+}
+
+message ReadPokemonResponse {
+  Pokemon pokemon = 1;
+}
+
+message UpdatePokemonRequest {
+  Pokemon pokemon = 1;
+}
+
+message UpdatePokemonResponse {
+  Pokemon pokemon = 1;
+}
+
+message DeletePokemonRequest {
+  string pid = 1;
+}
+
+message DeletePokemonResponse {
+  string pid = 1;
+}
+
+message ListPokemonRequest {
+
+}
+
+message ListPokemonResponse {
+  Pokemon pokemon = 1;
+}
+
+service PokemonService {
+  rpc CreatePokemon (CreatePokemonRequest) returns (CreatePokemonResponse);
+  rpc ReadPokemon (ReadPokemonRequest) returns (ReadPokemonResponse); // возвращает NOT_FOUND, если не найдено
+  rpc UpdatePokemon (UpdatePokemonRequest) returns (UpdatePokemonResponse); // возвращает NOT_FOUND, если не найдено
+  rpc DeletePokemon (DeletePokemonRequest) returns (DeletePokemonResponse); // возвращает NOT_FOUND, если не найдено
+  rpc ListPokemon (ListPokemonRequest) returns (stream ListPokemonResponse); // Для потоковой передачи с сервера
 }
