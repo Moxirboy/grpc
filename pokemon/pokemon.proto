@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package pokemon;
 
-option go_package = "github.com/TRomesh/grpc-pokemon;pokemonpc";
+option go_package = "proto/";
 
 message Pokemon {
   string id = 1;
