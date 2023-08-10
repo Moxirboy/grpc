@@ -1,0 +1,11 @@
+syntax="proto3";
+option go_package= "grpc/proto";
+service messanger{
+  rpc messager(request) returns(response);
+}
+message request{
+  string message=1;
+}
+message response{
+  string message=1;
+}
